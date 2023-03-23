@@ -2,6 +2,8 @@ import $ from "jquery";
 import Sidepanel from "./components/Sidepanel";
 var CryptoJS = require("crypto-js");
 
+let users
+
 var aesKey = '0ca175b9c0f726a831d895e269332461';
         function encrypt(plain) {
             var key = CryptoJS.enc.Utf8.parse(aesKey);
@@ -35,14 +37,15 @@ var aesKey = '0ca175b9c0f726a831d895e269332461';
                     var plain = decrypt(evt.data);
                     $('#divReceived').append('<p>' + plain + '</p>');
                     var json = JSON.parse(plain);
-                    if (json.Method == 'Login') {
+                    users = json
+                    if (json.Method === 'Login') {
                         globalIndex = json.GlobalIndex;
                         return;
                     }
                     if (json.Messages &&
                         json.Messages.length > 0 &&
                         json.Messages[0].Id &&
-                        json.Messages[0].ToUserName == 'Global') {
+                        json.Messages[0].ToUserName === 'Global') {
                         var fromUserName = $.trim($('#txtFromUserName').val());
                         var reqConfirm = {
                             Method: "Confirm",
@@ -133,7 +136,10 @@ var aesKey = '0ca175b9c0f726a831d895e269332461';
             });
         });
 
+        
+        
 function App() {
+
   return (
     <>
       <div>
@@ -189,4 +195,16 @@ function App() {
   );
 }
 
+
+// function App() {
+//   return(
+//     <>
+//     <div className="overflow-y-hidden">
+//     <Sidepanel/>
+//     </div>
+//     </>
+//   )
+// }
+
 export default App;
+export { users }
