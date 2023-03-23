@@ -1,9 +1,12 @@
 import $ from "jquery";
+import Chatwindow from "./components/Chatwindow";
 import Sidepanel from "./components/Sidepanel";
+import { useEffect, useState } from "react";
 var CryptoJS = require("crypto-js");
 
 let users;
 
+// jQuery code
 var aesKey = "0ca175b9c0f726a831d895e269332461";
 function encrypt(plain) {
   var key = CryptoJS.enc.Utf8.parse(aesKey);
@@ -39,6 +42,8 @@ function initWebSocket() {
       var plain = decrypt(evt.data);
       $("#divReceived").append("<p>" + plain + "</p>");
       var json = JSON.parse(plain);
+      // users = json;
+      // setUser(json)
       if (json.Method === "Login") {
         globalIndex = json.GlobalIndex;
         return;
@@ -137,7 +142,22 @@ $(function () {
   });
 });
 
+// function App() {
+//   return (
+//     <>
+//       <div className="flex">
+//         <div className="overflow-y-hidden">
+//           <Sidepanel />
+//         </div>
+//         <Chatwindow />
+//       </div>
+//     </>
+//   );
+// }
+
 function App() {
+  const [user, setUser] = useState();
+  // console.log(ws);
   return (
     <>
       <div>
@@ -192,16 +212,6 @@ function App() {
     </>
   );
 }
-
-// function App() {
-//   return(
-//     <>
-//     <div className="overflow-y-hidden">
-//     <Sidepanel/>
-//     </div>
-//     </>
-//   )
-// }
 
 export default App;
 export { users };
