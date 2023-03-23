@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Messagebar from "./Messagebar";
+import Profile from "./Profile";
 
 const Chatwindow = () => {
   return (
-    <div>Chatwindow</div>
-  )
-}
+    <div>
+      <Profile />
+      <Messagebar />
+    </div>
+  );
+};
 
-export default Chatwindow
+export default Chatwindow;
