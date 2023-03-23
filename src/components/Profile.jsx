@@ -1,13 +1,13 @@
 import React from "react";
 import profileIcon from "../assets/profile-icon-png-898.png";
 
-const Profile = () => {
+const Profile = (props) => {
   return (
-    <div className="flex h-20 px-5 bg-blue-500 w-[80vw] items-center justify-between ">
-      <img src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/null/external-user-interface-a1-creatype-outline-colourcreatype.png" />
-      <div className="closeIcon">
-        <img src="https://img.icons8.com/ios-filled/50/null/multiply.png" />
+    <div className="relative z-10 flex flex-row items-center justify-center p-6 border-2 border-t-0 cursor-pointer">
+      <div className="image">
+        <img src={profileIcon} alt="" className="h-[3rem] w-[3rem]" />
       </div>
+      <div className="px-24 font-bold username">{props.name}</div>
     </div>
   );
 };

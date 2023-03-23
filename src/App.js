@@ -1,9 +1,8 @@
 import $ from "jquery";
-import Chatwindow from "./components/Chatwindow";
-import Messagebar from "./components/Messagebar";
-import Profile from "./components/Profile";
 import Sidepanel from "./components/Sidepanel";
 var CryptoJS = require("crypto-js");
+
+let users;
 
 var aesKey = "0ca175b9c0f726a831d895e269332461";
 function encrypt(plain) {
@@ -40,7 +39,8 @@ function initWebSocket() {
       var plain = decrypt(evt.data);
       $("#divReceived").append("<p>" + plain + "</p>");
       var json = JSON.parse(plain);
-      if (json.Method == "Login") {
+      users = json;
+      if (json.Method === "Login") {
         globalIndex = json.GlobalIndex;
         return;
       }
@@ -48,7 +48,7 @@ function initWebSocket() {
         json.Messages &&
         json.Messages.length > 0 &&
         json.Messages[0].Id &&
-        json.Messages[0].ToUserName == "Global"
+        json.Messages[0].ToUserName === "Global"
       ) {
         var fromUserName = $.trim($("#txtFromUserName").val());
         var reqConfirm = {
@@ -141,7 +141,7 @@ $(function () {
 function App() {
   return (
     <>
-      {/* <div>
+      <div>
         UserName:{" "}
         <input
           type="text"
@@ -189,10 +189,20 @@ function App() {
           <legend>Received: </legend>
           <div id="divReceived"></div>
         </fieldset>
-      </div> */}
-      <Chatwindow />
+      </div>
     </>
   );
 }
 
+// function App() {
+//   return(
+//     <>
+//     <div className="overflow-y-hidden">
+//     <Sidepanel/>
+//     </div>
+//     </>
+//   )
+// }
+
 export default App;
+export { users };
