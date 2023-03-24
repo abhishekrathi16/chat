@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import { users } from '../App'
+import { users } from "../App";
 
 const Sidepanel = () => {
   // console.log(users);
